@@ -21,4 +21,10 @@ public class UserServiceImpl implements UserService{
     public void addUser(CustomUser customUser) {
         userRepository.saveAndFlush(customUser);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public CustomUser getUserByLogin(String login) {
+        return userRepository.getUserByLogin(login);
+    }
 }

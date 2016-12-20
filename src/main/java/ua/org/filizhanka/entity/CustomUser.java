@@ -8,17 +8,19 @@ import javax.persistence.*;
 @Entity
 public class CustomUser {
     @Id
-    @GeneratedValue
-    @Column
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "customUser_seq")
+    @SequenceGenerator(name = "customUser_seq",
+            sequenceName = "customUser_seq", allocationSize = 1, initialValue = 1)
     private int id;
     private String name;
     private String login;
     private String password;
     private String email;
-
+    private String mobilephone;
     @Enumerated(EnumType.STRING)
     private UserRole role;
-    private String mobilephone;
+
 
     public CustomUser() {
     }
@@ -116,8 +118,8 @@ public class CustomUser {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", role=" + role +
                 ", mobilephone='" + mobilephone + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

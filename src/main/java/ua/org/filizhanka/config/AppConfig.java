@@ -10,8 +10,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import ua.org.filizhanka.service.UserService;
-import ua.org.filizhanka.service.impl.UserServiceImpl;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -23,7 +24,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:config.properties")
-
+@EnableWebMvc
 public class AppConfig {
     @Value("${hibernate.dialect}")
     private String sqlDialect;
@@ -57,10 +58,14 @@ public class AppConfig {
     }
 
     @Bean
-    public UserService userService (){
-        return new UserServiceImpl();
-    }
+    public UrlBasedViewResolver setupViewResolver() {
+        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+        resolver.setPrefix("/WEB-INF/pages/");
+        resolver.setSuffix(".jsp");
+        resolver.setViewClass(JstlView.class);
 
+        return resolver;
+    }
     private Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", hbm2dllAuto);
