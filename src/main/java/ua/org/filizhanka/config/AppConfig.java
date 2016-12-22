@@ -11,6 +11,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
@@ -25,7 +27,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource("classpath:config.properties")
 @EnableWebMvc
-public class AppConfig {
+public class AppConfig extends WebMvcConfigurerAdapter{
     @Value("${hibernate.dialect}")
     private String sqlDialect;
 
@@ -70,5 +72,10 @@ public class AppConfig {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", hbm2dllAuto);
         return properties;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 }
