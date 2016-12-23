@@ -39,7 +39,6 @@
         width: 75%;
         text-indent: 5px;
         margin-left: 25%;
-        font-size: 1.25vh;
         font-size: 1.25vw;
     }
 
@@ -70,12 +69,11 @@
     .aReestration {
         text-align: right;
         margin-top: 1%;
-        color: #a2745a;
         text-decoration: none;
     }
 
     .aReestration link {
-        color: #a2745a;
+        color: #ffd7c1;
     }
 
     ::-webkit-input-placeholder {
@@ -137,7 +135,7 @@
             </div>
             <div class="col-md-2 col-sm-2 col-xs-2 col-lg-2 no-gutter">
                 <div class="aReestration">
-                    <a href="login.jsp" style="color: #a2745a">Реєстрацiя</a>
+                    <a href="login.jsp" style="color:#ffd7c1;">Реєстрацiя</a>
                 </div>
 
                 <form action="login">
