@@ -12,6 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
     @RequestMapping("/")
+    public String root() {
+        return "success";
+    }
+
+    @RequestMapping("/success")
+    public String success(){
+        return "success";
+    }
+
+    @RequestMapping("/login")
     public String loginPage() {
         return "login";
     }

@@ -22,18 +22,4 @@ public class Application {
         Locale.setDefault(Locale.ENGLISH);
         SpringApplication.run(Application.class, args);
     }
-
-    @Bean
-    public CommandLineRunner demo(final UserDetailsService userService) {
-        return new CommandLineRunner() {
-            @Override
-            public void run(String... strings) throws Exception {
-                /*userService.addUser(new CustomUser("admin", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8", UserRole.ADMIN));
-                userService.addUser(new CustomUser("user", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8", UserRole.OPERATOR));*/
-                UserDetails user = userService.loadUserByUsername("admin");
-                System.out.println(user.toString());
-
-            }
-        };
-    }
 }
