@@ -46,7 +46,7 @@
         color: #ffd7c1;
     }
 
-    .loginForm textarea, select, input {
+    .loginForm textarea, select, input{
         color: #a2745a;
         width: 75%;
         margin-left: 25%;
@@ -60,7 +60,7 @@
         margin-top: 2%;
     }
 
-    .loginBtn {
+    .loginBtn{
         background-color: #140a08;
         border-radius: 4px;
         border: 1px solid #a2745a;
@@ -109,15 +109,6 @@
         -webkit-text-fill-color: #a2745a;
     }
 
-    body {
-        min-width: 1024px;
-    }
-
-    IMG.displayed {
-        display: block;
-        margin-left: auto;
-        margin-right: auto
-    }
 </style>
 <body>
 <div class="container-fluid">
@@ -173,8 +164,7 @@
             <!-- Body botton-->
             <div class="row" style="height: 90%">
                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 bodyBotton">
-                    <img src="/resources/images/filizhanka.jpg" class="displayed"
-                         style="width: 45%; margin-bottom: 20px">
+                    <h1>Page is being developed</h1>
                 </div>
             </div>
         </div>
@@ -186,8 +176,7 @@
             </div>
             <!-- Right side body botton-->
             <div class="row" style="height: 90%">
-                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 side_bg">
-                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12 side_bg"></div>
             </div>
         </div>
     </div>
