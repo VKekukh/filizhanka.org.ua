@@ -8,6 +8,7 @@ CREATE TABLE customUser (
   email       VARCHAR2(256),
   mobilephone VARCHAR2(256),
   role        VARCHAR2(40),
+  active      NUMBER(1),
   CONSTRAINT customuser_id PRIMARY KEY (id),
   CONSTRAINT customuser_login_uk UNIQUE (login)
 );
@@ -17,4 +18,5 @@ CREATE SEQUENCE customUser_seq
 MINVALUE 1
 START WITH 1
 INCREMENT BY 1;
+
 
