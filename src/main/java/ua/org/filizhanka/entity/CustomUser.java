@@ -20,16 +20,11 @@ public class CustomUser {
     private String mobilephone;
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
+    private Boolean active;
 
     public CustomUser() {
     }
 
-
-    public CustomUser(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
 
     public CustomUser(String login, String password, UserRole role) {
         this.login = login;
@@ -37,21 +32,14 @@ public class CustomUser {
         this.role = role;
     }
 
-    public CustomUser(String name, String login, String password, String email, UserRole role, String mobilephone) {
+    public CustomUser(String name, String login, String password, String email, String mobilephone, UserRole role, Boolean active) {
         this.name = name;
         this.login = login;
         this.password = password;
         this.email = email;
-        this.role = role;
         this.mobilephone = mobilephone;
-    }
-
-    public CustomUser(String name, String login, String password, UserRole role, String mobilephone) {
-        this.name = name;
-        this.login = login;
-        this.password = password;
         this.role = role;
-        this.mobilephone = mobilephone;
+        this.active = active;
     }
 
     public int getId() {
@@ -110,6 +98,14 @@ public class CustomUser {
         this.email = email;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     @Override
     public String toString() {
         return "CustomUser{" +
@@ -120,6 +116,7 @@ public class CustomUser {
                 ", email='" + email + '\'' +
                 ", mobilephone='" + mobilephone + '\'' +
                 ", role=" + role +
+                ", active=" + active +
                 '}';
     }
 }

@@ -17,16 +17,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService).passwordEncoder(getShaPasswordEncoder());
     }
 
-    private ShaPasswordEncoder getShaPasswordEncoder(){
+    private ShaPasswordEncoder getShaPasswordEncoder() {
         return new ShaPasswordEncoder();
     }
 
@@ -35,7 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").hasAnyRole("OPERATOR", "ADMIN")
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/newuser").permitAll()
+                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/operator").hasRole("OPERATOR")
+                .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().accessDeniedPage("/unauthorized")
                 .and()

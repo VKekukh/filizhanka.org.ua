@@ -10,14 +10,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style>
-
+    .right {
+        text-align: right;
+        float: right;
+    }
 </style>
 <body>
-<div class="container">
 
+<div class="container">
+    <a class="right" href="/logout"><h3>Logout</h3></a>
     <div style="text-align: center; margin-top: 25%">
-        <h1> Unauthorized Page! You don't have permit to view this page!</h1>
-        <h3> This page is being used for testing</h3>
+        <h1> Admin Page!</h1>
+        <h3>This page only for admins</h3>
     </div>
 </div>
 </body>

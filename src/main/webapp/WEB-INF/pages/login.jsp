@@ -27,6 +27,13 @@
     <h1 class="text-center" style="margin-top: 10%; margin-bottom: 10%">Welcome to Filizhanka</h1>
     <div class="col-xs-4"></div>
     <div class="col-xs-4">
+        <c:if test="${param.error ne null}">
+            <p class="bg-danger">Wrong login or password!</p>
+        </c:if>
+        <c:if test="${param.logout ne null}">
+            <p class="bg-success text-center">See you next time!</p>
+        </c:if>
+
         <form action="/login_check" method="post">
             <div class="form-group input-group col-xs-12">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -41,7 +48,7 @@
             <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-ok-circle"
                                                                 aria-hidden="true"></span> Sign In
             </button>
-            <a href="/success" class="right">Registration</a>
+            <a href="/registration" class="right">Registration</a>
         </form>
         <div class="col-xs-4"></div>
     </div>
