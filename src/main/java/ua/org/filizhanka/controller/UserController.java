@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @RequestMapping("/profile")
-    public String update(Model model){
+    public String profile(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String login = user.getUsername();
 
@@ -70,21 +70,29 @@ public class UserController {
         model.addAttribute("login", customUser.getLogin());
         model.addAttribute("password", customUser.getPassword());
         model.addAttribute("email", customUser.getEmail());
-        model.addAttribute("mobilephone",customUser.getMobilephone());
-        model.addAttribute("fio",customUser.getName());
+        model.addAttribute("mobilephone", customUser.getMobilephone());
+        model.addAttribute("fio", customUser.getName());
+        model.addAttribute("active", customUser.getActive());
         return "profile";
     }
 
-    @RequestMapping(value = "/newuser", method = RequestMethod.POST)
-    public String update(@RequestParam String login,
-                         @RequestParam String password,
-                         @RequestParam(required = false) String fio,
-                         @RequestParam(required = false) String email,
-                         @RequestParam(required = false) String mobilephone,
-                         HttpServletRequest request,
-                         Model model) {
+    @RequestMapping(value = "/editUser", method = RequestMethod.POST)
+    public String updateUser( Model model) {
+        model.addAttribute("test","edit333");
+        return "redirect:/profile";
+    }
 
-        if (login.equals("")||password.equals("")) {
+
+    @RequestMapping(value = "/newuser", method = RequestMethod.POST)
+    public String newuser(@RequestParam String login,
+                          @RequestParam String password,
+                          @RequestParam(required = false) String fio,
+                          @RequestParam(required = false) String email,
+                          @RequestParam(required = false) String mobilephone,
+                          HttpServletRequest request,
+                          Model model) {
+
+        if (login.equals("") || password.equals("")) {
             model.addAttribute("emptyLoginOrPassword", true);
             return "registration";
         }
@@ -92,14 +100,14 @@ public class UserController {
         ShaPasswordEncoder encoder = new ShaPasswordEncoder();
         String passHash = encoder.encodePassword(password, null);
 
-        CustomUser dbUser = new CustomUser(fio,login,passHash,email,mobilephone,UserRole.ADMIN,true);
+        CustomUser dbUser = new CustomUser(fio, login, passHash, email, mobilephone, UserRole.ADMIN, true);
         userService.addUser(dbUser);
 
-        authenticateUserAndSetSession(login,password,request);
+        authenticateUserAndSetSession(login, password, request);
         return "redirect:/";
     }
 
-    private void authenticateUserAndSetSession(String login, String password,  HttpServletRequest request) {
+    private void authenticateUserAndSetSession(String login, String password, HttpServletRequest request) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(login, password);
 
         // generate session if one doesn't exist

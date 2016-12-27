@@ -36,8 +36,18 @@
         the "supervisor" authority in their list of <tt>GrantedAuthority</tt>s.
     </sec:authorize>
 
-    <c:url value="/update" var="url"/>
+    <c:if test="${test ne edit333}">
+        <c:set var="editable" value="readonly"></c:set>
+        <c:url value="/editUser" var="url"/>
+        <h1>test</h1>
+    </c:if>
+    <c:if test="${test eq edit333}">
+        <h1>True</h1>
+    </c:if>
 
+    <c:if test="${active}">
+        <c:set var="check" value="checked"></c:set>
+    </c:if>
     <form action="${url}" method="POST">
         <div class="row">
             <div class="col-xs-4">
@@ -46,17 +56,22 @@
             </div>
             <div class="col-xs-8 form-group">
                 <label for="login">Login</label>
-                <input type="text" id="login" name="login" class="form-control" value="${login}">
+                <input type="text" id="login" name="login" class="form-control" value="${login}" readonly>
                 <label for="fio">FIO</label>
-                <input type="text" id="fio" name="fio" class="form-control" value="${fio}">
+                <input ${editable} type="text" id="fio" name="fio" class="form-control" value="${fio}">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" class="form-control" value="${password}">
+                <input ${editable} type="password" id="password" name="password" class="form-control"
+                                   value="${password}">
                 <label for="email">Email</label>
-                <input type="text" id="email" name="email" class="form-control" value="${email}">
+                <input ${editable} type="text" id="email" name="email" class="form-control" value="${email}">
                 <label for="mobilephone">Mobilephone</label>
-                <input type="text" id="mobilephone" name="mobilephone" class="form-control" value="${mobilephone}">
-                <button type="submit" class="btn btn-default" style="margin-top: 5%; margin-left: 20%"><span class="glyphicon glyphicon-pencil"
-                                                                    aria-hidden="true"></span> Edit
+                <input ${editable} type="text" id="mobilephone" name="mobilephone" class="form-control"
+                                   value="${mobilephone}">
+                <label class="checkbox-inline"><input type="checkbox" ${check}>Active</label>
+
+                <button type="submit" class="btn btn-default" style="margin-top: 5%; margin-left: 20%" ><span
+                        class="glyphicon glyphicon-pencil"
+                        aria-hidden="true"></span> Edit
                 </button>
             </div>
         </div>
