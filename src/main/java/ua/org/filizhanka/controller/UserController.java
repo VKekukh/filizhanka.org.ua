@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,7 +38,8 @@ public class UserController {
         String login = user.getUsername();
 
         CustomUser customUser = userService.getUserByLogin(login);
-        model.addAttribute("login", customUser.getLogin());
+        model.addAttribute(customUser);
+        //model.addAttribute("login", customUser.getLogin());
         return "success";
     }
 
@@ -62,26 +64,32 @@ public class UserController {
     }
 
     @RequestMapping("/profile")
-    public String profile(Model model) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String login = user.getUsername();
-
-        CustomUser customUser = userService.getUserByLogin(login);
-        model.addAttribute("login", customUser.getLogin());
-        model.addAttribute("password", customUser.getPassword());
-        model.addAttribute("email", customUser.getEmail());
-        model.addAttribute("mobilephone", customUser.getMobilephone());
-        model.addAttribute("fio", customUser.getName());
-        model.addAttribute("active", customUser.getActive());
+    public String profile(Model model, CustomUser customUser, BindingResult result) {
+        if (customUser.getName() == null) {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String login = user.getUsername();
+            customUser = userService.getUserByLogin(login);
+        }
+        model.addAttribute("customUser", customUser);
         return "profile";
     }
 
     @RequestMapping(value = "/editUser", method = RequestMethod.POST)
-    public String updateUser( Model model) {
-        model.addAttribute("test","edit333");
+    public String updateUser(Model model, CustomUser customUser, BindingResult result) {
+        model.addAttribute("customUser", customUser);
+        model.addAttribute("btnEdit", true);
         return "redirect:/profile";
     }
 
+    @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+    public String saveUser(Model model,
+                           CustomUser customUser,
+                           BindingResult result) {
+        model.addAttribute(customUser);
+        //customUser.setPassword(code(customUser.getPassword()));
+        userService.saveUser(customUser);
+        return "redirect:/profile";
+    }
 
     @RequestMapping(value = "/newuser", method = RequestMethod.POST)
     public String newuser(@RequestParam String login,
@@ -97,10 +105,9 @@ public class UserController {
             return "registration";
         }
 
-        ShaPasswordEncoder encoder = new ShaPasswordEncoder();
-        String passHash = encoder.encodePassword(password, null);
+        CustomUser dbUser = new CustomUser(fio, login, password, email, mobilephone, UserRole.ADMIN, true);
 
-        CustomUser dbUser = new CustomUser(fio, login, passHash, email, mobilephone, UserRole.ADMIN, true);
+        dbUser.setPassword(code(password));
         userService.addUser(dbUser);
 
         authenticateUserAndSetSession(login, password, request);
@@ -117,6 +124,13 @@ public class UserController {
         Authentication authenticatedUser = authenticationManager.authenticate(token);
 
         SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
+    }
+
+    public String code(String password){
+        ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+        String passHash = encoder.encodePassword(password, null);
+
+        return passHash;
     }
 }
 

@@ -23,6 +23,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
+    public void saveUser(CustomUser customUser) {
+          userRepository.save(customUser);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public CustomUser getUserByLogin(String login) {
         return userRepository.getUserByLogin(login);

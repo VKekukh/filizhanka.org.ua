@@ -7,6 +7,6 @@ import ua.org.filizhanka.entity.CustomUser;
  */
 public interface UserService {
     void addUser(CustomUser customUser);
-
+    void saveUser(CustomUser customUser);
     CustomUser getUserByLogin(String login);
 }

@@ -1,5 +1,7 @@
 package ua.org.filizhanka.entity;
 
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+
 import javax.persistence.*;
 
 /**
@@ -71,6 +73,7 @@ public class CustomUser {
     }
 
     public void setPassword(String password) {
+
         this.password = password;
     }
 
