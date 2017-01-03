@@ -20,8 +20,6 @@
     form {
         padding: 25px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        margin-top: 10%;
-        width: 40%;
     }
 
     #profile_logo {
@@ -39,33 +37,44 @@
 <body>
 
 <div class="container">
+
     <c:set var="editable" value="false"></c:set>
     <c:set var="show" value="notShow"></c:set>
 
     <sec:authorize access="hasRole('ADMIN')">
         <c:set var="show" value="show"></c:set>
+        <c:url var="icon" value="/resources/images/admin_account.png"></c:url>
+    </sec:authorize>
+    <sec:authorize access="hasRole('OPERATOR')">
+        <c:set var="show" value="show"></c:set>
+        <c:url var="icon" value="/resources/images/user_expert.png"></c:url>
     </sec:authorize>
 
     <c:if test="${param.btnEdit eq null}">
         <c:set var="editable" value="true"></c:set>
-        <c:set var="btnName" value="Edit"></c:set>
-        <c:url value="/editUser" var="url"/>
+        <c:set var="btnName" value=" Edit"></c:set>
+        <c:url value="/editProfile" var="url"/>
     </c:if>
     <c:if test="${param.btnEdit ne null}">
-        <c:set var="btnName" value="Save"></c:set>
-        <c:url value="/saveUser" var="url"/>
+        <c:set var="btnName" value=" Save"></c:set>
+        <c:url value="/saveProfile" var="url"/>
     </c:if>
-
     <c:if test="${active}">
         <c:set var="check" value="checked"></c:set>
     </c:if>
+
+    <h3 class="text-center" style="margin-top: 10%">On this page you can edit your profile</h3>
+    <div class="col-xs-3"></div>
+
+
+    <div class="col-xs-6">
     <form:form action="${url}" method="POST" commandName="customUser">
         <div class="row">
-            <div class="col-xs-4">
-                <img id="profile_logo" src="/resources/images/admin_account.png" alt="admin_account"
+            <div class="col-xs-3">
+                <img id="profile_logo" src="${icon}" alt="admin_account"
                      style="height: 10%">
             </div>
-            <div class="col-xs-8 form-group">
+            <div class="col-xs-9 form-group">
                 <label for="id" class="${show}">id</label>
                 <form:input type="text" class="form-control ${show}" path="id" readonly="true"/>
 
@@ -97,7 +106,9 @@
                 </button>
             </div>
         </div>
+        <a href="/" class="right">Home</a>
     </form:form>
+    </div>
 </div>
 </body>
 </html>

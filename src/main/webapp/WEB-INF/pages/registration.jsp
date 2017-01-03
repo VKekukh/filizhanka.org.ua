@@ -23,7 +23,7 @@
 </style>
 <body>
 <div align="center">
-    <c:url value="/newuser" var="regUrl" />
+    <c:url value="/registrationUser" var="regUrl" />
 
     <form action="${regUrl}" method="POST">
 
