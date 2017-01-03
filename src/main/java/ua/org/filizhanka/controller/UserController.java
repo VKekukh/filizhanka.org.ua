@@ -19,6 +19,8 @@ import ua.org.filizhanka.entity.UserRole;
 import ua.org.filizhanka.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by vkekukh on 27.12.2016.
@@ -39,7 +41,7 @@ public class UserController {
 
         CustomUser customUser = userService.getUserByLogin(login);
         model.addAttribute(customUser);
-        //model.addAttribute("login", customUser.getLogin());
+
         return "success";
     }
 
@@ -91,6 +93,12 @@ public class UserController {
         return "redirect:/profile";
     }
 
+    @RequestMapping(value = "/users")
+    public String users(Model model){
+        model.addAttribute("users", userService.getUsers());
+        return "users";
+    }
+
     @RequestMapping(value = "/newuser", method = RequestMethod.POST)
     public String newuser(@RequestParam String login,
                           @RequestParam String password,
@@ -102,6 +110,11 @@ public class UserController {
 
         if (login.equals("") || password.equals("")) {
             model.addAttribute("emptyLoginOrPassword", true);
+            return "registration";
+        }
+
+        if (userService.existsByLogin(login)){
+            model.addAttribute("exist",true);
             return "registration";
         }
 
