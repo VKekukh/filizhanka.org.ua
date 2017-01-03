@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by vkekukh on 15.12.2016.
  */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
@@ -25,12 +28,28 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public void saveUser(CustomUser customUser) {
-          userRepository.save(customUser);
+        userRepository.save(customUser);
     }
 
     @Override
     @Transactional(readOnly = true)
     public CustomUser getUserByLogin(String login) {
         return userRepository.getUserByLogin(login);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsByLogin(String login) {
+        if (userRepository.existsByLogin(login)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<CustomUser> getUsers() {
+        List<CustomUser>  users = new ArrayList<>();
+        users = userRepository.getUsers();
+        return users;
     }
 }
