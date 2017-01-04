@@ -32,6 +32,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
+    public void deleteUser(CustomUser customUser) {
+        userRepository.delete(customUser);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public CustomUser getUserByLogin(String login) {
         return userRepository.getUserByLogin(login);

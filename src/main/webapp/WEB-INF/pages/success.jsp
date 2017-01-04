@@ -25,7 +25,7 @@
         <h1> Success Page!</h1>
 
         <h3>
-            <div class="text-capitalize"> ${login},</div>
+            <div class="text-capitalize"> ${customUser.login},</div>
             this page is being used for testing
         </h3>
 
@@ -37,10 +37,10 @@
         <div class="row">
             <div class="col-xs-2"></div>
             <div class="col-xs-2">
-                <a href="/admin">Page for admins</a>
+                <a href="/profile">Your profile</a>
             </div>
             <div class="col-xs-2">
-                <a href="/operator">Page for operators</a>
+                <a href="/users">List of Users</a>
             </div>
             <div class="col-xs-2">
                 <a href="/redirect">Test redirect</a>
