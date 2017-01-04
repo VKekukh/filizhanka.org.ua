@@ -58,6 +58,7 @@
         <c:if test="${emptyLoginOrPassword ne null}">
             <p class="bg-danger">Login and password can not be empty!</p>
         </c:if>
+        <a href="/" class="right" style="float: right; margin: 1%">Home</a>
     </form>
 </div>
 </body>

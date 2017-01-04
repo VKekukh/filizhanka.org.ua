@@ -54,7 +54,7 @@ public class ProfileController {
     }
 
     @RequestMapping(value = "/users")
-    public String users(Model model){
+    public String users(Model model) {
         Users users = new Users();
         users.setUsers(userService.getUsers());
         model.addAttribute("users", users);
@@ -62,19 +62,21 @@ public class ProfileController {
     }
 
     @RequestMapping(value = "/saveUsers", method = RequestMethod.POST)
-    public String saveUsers(@RequestParam("action") String action, Model model, Users users, BindingResult result){
-        System.out.println(action);
-        if (action.equals("Save")){
-            List<CustomUser> listUsers = new ArrayList<>();
-            listUsers.addAll(users.getUsers());
-            for (CustomUser user : listUsers) {
-                userService.saveUser(user);
-            }
-        }else if(action.equals("delete")){
-            System.out.println("delete");
+    public String saveUsers(@RequestParam("action") String action, Model model, Users users, BindingResult result) {
+
+        List<CustomUser> listUsers = new ArrayList<>();
+        listUsers.addAll(users.getUsers());
+
+        for (CustomUser user : listUsers) {
+            userService.saveUser(user);
         }
 
-        List<CustomUser> listUsers = users.getUsers();
-        return  "redirect:/users";
+        return "redirect:/users";
+    }
+
+    @RequestMapping(value = "/deleteUser")
+    public String deleteUser(@RequestParam(value = "id") int id) {
+        userService.deleteUser(id);
+        return "redirect:/users";
     }
 }

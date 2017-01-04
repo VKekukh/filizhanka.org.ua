@@ -33,8 +33,6 @@ public class UserController {
     private UserService userService;
 
 
-
-
     @RequestMapping("/success")
     public String success() {
         return "success";

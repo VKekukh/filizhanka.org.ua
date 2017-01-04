@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
     void addUser(CustomUser customUser);
     void saveUser(CustomUser customUser);
-    void deleteUser(CustomUser customUser);
+    void deleteUser(int id);
 
     CustomUser getUserByLogin(String login);
     boolean existsByLogin(String login);
